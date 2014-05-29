@@ -132,7 +132,6 @@
 		03EDFA28193738E0006E81E3 /* WaveOutActive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 03EDF9E9193738E0006E81E3 /* WaveOutActive@2x.png */; };
 		03EDFA29193738E0006E81E3 /* WaveOutInactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 03EDF9EA193738E0006E81E3 /* WaveOutInactive.png */; };
 		03EDFA2A193738E0006E81E3 /* WaveOutInactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 03EDF9EB193738E0006E81E3 /* WaveOutInactive@2x.png */; };
-		03EDFA2C19373938006E81E3 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 03EDFA2B19373938006E81E3 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -279,7 +278,6 @@
 		03EDF9E9193738E0006E81E3 /* WaveOutActive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WaveOutActive@2x.png"; sourceTree = "<group>"; };
 		03EDF9EA193738E0006E81E3 /* WaveOutInactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WaveOutInactive.png; sourceTree = "<group>"; };
 		03EDF9EB193738E0006E81E3 /* WaveOutInactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WaveOutInactive@2x.png"; sourceTree = "<group>"; };
-		03EDFA2B19373938006E81E3 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -316,7 +314,6 @@
 		039E00F818EB063A00FC59C4 = {
 			isa = PBXGroup;
 			children = (
-				03EDFA2B19373938006E81E3 /* Default-568h@2x.png */,
 				039E010A18EB063A00FC59C4 /* myosic */,
 				039E012918EB063A00FC59C4 /* myosicTests */,
 				039E010318EB063A00FC59C4 /* Frameworks */,
@@ -685,7 +682,6 @@
 				039E016318EB068800FC59C4 /* myo_logo@2x.png in Resources */,
 				039E016D18EB068800FC59C4 /* repeat_one@2x.png in Resources */,
 				03EDFA10193738E0006E81E3 /* TwistInInactive@2x.png in Resources */,
-				03EDFA2C19373938006E81E3 /* Default-568h@2x.png in Resources */,
 				03EDFA17193738E0006E81E3 /* WaveIn4.png in Resources */,
 				03EDFA07193738E0006E81E3 /* TwistIn2.png in Resources */,
 				039E018618EB069A00FC59C4 /* launch_4.png in Resources */,
