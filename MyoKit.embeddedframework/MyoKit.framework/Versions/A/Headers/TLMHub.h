@@ -2,7 +2,7 @@
 //  TLMHub.h
 //  MyoKit
 //
-//  Copyright (C) 2013 Thalmic Labs Inc.
+//  Copyright (C) 2014 Thalmic Labs Inc.
 //  Confidential and not for redistribution. See LICENSE.txt.
 //
 
@@ -32,6 +32,12 @@ extern NSString *const TLMHubDidDisconnectDeviceNotification; /**< Posted whenev
    The TLMHub singleton manages TLMMyos.
  */
 @interface TLMHub : NSObject
+
+/**
+   Controls how many TLMMyos are allowed to connect to your app at once. Default value is 1. Undefined behaviour for
+   myoConnectionAllowance > 2.
+ */
+@property (nonatomic, readwrite) NSUInteger myoConnectionAllowance;
 
 /**
    Singleton accessor.

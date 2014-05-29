@@ -2,7 +2,7 @@
 //  TLMRotationRateData.h
 //  MyoKit
 //
-//  Copyright (C) 2013 Thalmic Labs Inc.
+//  Copyright (C) 2014 Thalmic Labs Inc.
 //  Confidential and not for redistribution. See LICENSE.txt.
 //
 
