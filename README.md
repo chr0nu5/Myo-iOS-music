@@ -1,5 +1,6 @@
 Myosic
 =============
+![Icon](myosic/icon_app.png)
 
 A little music player on iOS based on [GVMusicPlayerController](https://github.com/gangverk/GVMusicPlayerController).
 
