@@ -65,12 +65,4 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    TLMMyo *device = [[TLMHub sharedHub] myoDevices][indexPath.row];
-    if(device) {
-        [device presentTrainerFromViewController:self];
-    }
-}
-
 @end

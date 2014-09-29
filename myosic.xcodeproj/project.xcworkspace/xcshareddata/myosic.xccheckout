@@ -10,29 +10,29 @@
 	<string>myosic</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>6BD5A67C-0983-4765-B397-40C5A2755AB7</key>
+		<key>3D2CF32FBE025A5D31E9D40C3AB7647A1AB3E41B</key>
 		<string>https://github.com/thalmic-alpha/Myo-iOS-music.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>myosic.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>6BD5A67C-0983-4765-B397-40C5A2755AB7</key>
+		<key>3D2CF32FBE025A5D31E9D40C3AB7647A1AB3E41B</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/thalmic-alpha/Myo-iOS-music.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>6BD5A67C-0983-4765-B397-40C5A2755AB7</string>
+	<string>3D2CF32FBE025A5D31E9D40C3AB7647A1AB3E41B</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>6BD5A67C-0983-4765-B397-40C5A2755AB7</string>
+			<string>3D2CF32FBE025A5D31E9D40C3AB7647A1AB3E41B</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Myo-iOS-music</string>
 		</dict>

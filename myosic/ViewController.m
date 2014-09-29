@@ -25,7 +25,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *repeatButton;
 @property (weak, nonatomic) IBOutlet UIButton *shuffleButton;
 @property (weak, nonatomic) IBOutlet UIButton *myoButton;
+@property (nonatomic) BOOL isVoluming;
 @property (strong, nonatomic) NSTimer *timer;
+@property (nonatomic, retain) NSTimer *autoLockTimer;
 @property BOOL panningProgress;
 @property BOOL panningVolume;
 
@@ -46,13 +48,14 @@
     
     // Myo Notifications
     // a myo connects
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didConnectMyo:) name:TLMHubDidConnectDeviceNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didConnectMyo:) name:TLMMyoDidReceiveArmRecognizedEventNotification object:nil];
     // a myo disconnects
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDisconnectMyo:) name:TLMHubDidConnectDeviceNotification object:nil];
     // receive a pose
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceivePoseChange:) name:TLMMyoDidReceivePoseChangedNotification object:nil];
     // receive a snap
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveSnap:) name:@"TLMMyoDidReceiveSnapGestureNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveGyroscopeEvent:) name:TLMMyoDidReceiveGyroscopeEventNotification object:nil];
     
     // launch the player
 #if !(TARGET_IPHONE_SIMULATOR)
@@ -106,7 +109,7 @@
     [self setCorrectRepeatButtomImage];
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     
-    [[TLMHub sharedHub] pairWithAdjacent];
+    [[TLMHub sharedHub] attachToAdjacent];
     
     [self becomeFirstResponder];
 }
@@ -139,32 +142,57 @@
 
 - (void)didReceivePoseChange:(NSNotification*)notification {
     TLMPose *pose = notification.userInfo[kTLMKeyPose];
+    NSLog(@"%d", pose.type);
+    
+    if (!self.locked && self.isVoluming && pose.type == TLMPoseTypeRest) {
+        self.isVoluming = NO;
+        [self resetAutolock];
+    }
+    else if (self.isVoluming) {
+        return;
+    }
     
     switch (pose.type) {
-        case TLMPoseTypeNone:
-            break;
         case TLMPoseTypeFist:
             if (!self.locked) {
+                self.isVoluming = YES;
+                [self.autoLockTimer invalidate];
+            }
+            break;
+        case TLMPoseTypeFingersSpread:
+            if (!self.locked) {
                 [self playButtonPressed];
+                [self resetAutolock];
             }
             break;
         case TLMPoseTypeWaveOut:
             if (!self.locked) {
                 [self nextButtonPressed];
+                [self resetAutolock];
             }
             break;
         case TLMPoseTypeWaveIn:
             if (!self.locked) {
                 [self prevButtonPressed];
+                [self resetAutolock];
             }
             break;
-        case TLMPoseTypeFingersSpread:
+        case TLMPoseTypeThumbToPinky:
             [self lockOrUnlock];
             break;
-        case TLMPoseTypeTwistIn:
-            break;
+        case TLMPoseTypeUnknown:
+        case TLMPoseTypeRest:
         default:
             break;
+    }
+}
+
+-(void)didReceiveGyroscopeEvent:(NSNotification *)notification {
+    TLMGyroscopeEvent *event = notification.userInfo[kTLMKeyGyroscopeEvent];
+    GLKVector3 v = event.vector;
+    if (self.isVoluming) {
+        NSLog(@"%f", v.x);
+        [GVMusicPlayerController sharedInstance].volume -= v.x / 500;
     }
 }
 
@@ -172,9 +200,28 @@
     [self lockOrUnlock];
 }
 
+- (void)shortVibration {
+    [[[TLMHub sharedHub] myoDevices][0] vibrateWithLength:TLMVibrationLengthShort];
+}
+
+-(void)lock {
+    if (!self.locked) {
+        [self shortVibration];
+    }
+    self.locked = YES;
+    NSLog(@"%@", self.locked?@"locked":@"unlocked");
+}
+
 -(void)lockOrUnlock {
     self.locked = !self.locked;
-    [[[TLMHub sharedHub] myoDevices][0] vibrateWithLength:TLMVibrationLengthShort];
+    if (self.locked) {
+        [self shortVibration];
+        [self.autoLockTimer  invalidate];
+    } else {
+        [self shortVibration];
+        [[NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(shortVibration) userInfo:nil repeats:NO] fire];
+        [self resetAutolock];
+    }
     NSLog(@"%@", self.locked?@"locked":@"unlocked");
 }
 
@@ -309,6 +356,14 @@
     if (!self.panningVolume) {
         self.volumeSlider.value = volume;
     }
+}
+
+#pragma mark - autolock
+
+-(void)resetAutolock {
+    [self.autoLockTimer invalidate];
+    self.autoLockTimer = [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(lock) userInfo:nil repeats:NO];
+    //[self.autoLockTimer fire];
 }
 
 @end

@@ -7,12 +7,13 @@
 //
 
 #import "MDAppDelegate.h"
+#import <MyoKit/MyoKit.h>
 
 @implementation MDAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    [[TLMHub sharedHub] setShouldNotifyInBackground:YES];
     return YES;
 }
 							
