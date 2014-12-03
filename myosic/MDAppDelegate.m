@@ -13,7 +13,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [[TLMHub sharedHub] setShouldNotifyInBackground:YES];
+    [[TLMHub sharedHub] setApplicationIdentifier:@"me.dutour.mathieu.myosic"];
     return YES;
 }
 							

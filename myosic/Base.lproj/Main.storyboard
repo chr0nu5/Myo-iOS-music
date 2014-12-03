@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A361p" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="D10-2c-of3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="D10-2c-of3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="XPg-xu-mev">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" image="launch.png" translatesAutoresizingMaskIntoConstraints="NO" id="XPg-xu-mev">
                                 <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wct-4G-pnq">
@@ -235,6 +235,7 @@
                         <constraints>
                             <constraint firstItem="Wct-4G-pnq" firstAttribute="leading" secondItem="UYW-sg-nxo" secondAttribute="leading" id="9Bl-la-irT"/>
                             <constraint firstItem="XPg-xu-mev" firstAttribute="leading" secondItem="UYW-sg-nxo" secondAttribute="leading" id="Arc-1R-aH1"/>
+                            <constraint firstItem="Bzi-5v-CI5" firstAttribute="top" secondItem="Wct-4G-pnq" secondAttribute="bottom" id="BHp-Af-yNM"/>
                             <constraint firstAttribute="trailing" secondItem="Wct-4G-pnq" secondAttribute="trailing" id="BVG-hj-ctc"/>
                             <constraint firstAttribute="trailing" secondItem="XPg-xu-mev" secondAttribute="trailing" id="DWr-4q-iKg"/>
                             <constraint firstItem="XPg-xu-mev" firstAttribute="top" secondItem="E6K-gd-KYA" secondAttribute="top" id="IdZ-lE-rUI"/>
@@ -242,7 +243,6 @@
                             <constraint firstAttribute="trailing" secondItem="XcB-Ue-7yR" secondAttribute="trailing" id="Qbj-vh-CKp"/>
                             <constraint firstItem="XcB-Ue-7yR" firstAttribute="top" secondItem="E6K-gd-KYA" secondAttribute="bottom" constant="-22" id="VOZ-iy-I2C"/>
                             <constraint firstItem="Bzi-5v-CI5" firstAttribute="top" secondItem="XPg-xu-mev" secondAttribute="bottom" id="naZ-Bg-lDn"/>
-                            <constraint firstItem="Bzi-5v-CI5" firstAttribute="top" secondItem="Wct-4G-pnq" secondAttribute="bottom" id="v34-7M-nHn"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="vAQ-KV-w0o"/>
@@ -365,6 +365,7 @@
         <image name="backward_pressed.png" width="59" height="36"/>
         <image name="forward.png" width="60" height="36"/>
         <image name="forward_pressed.png" width="60" height="36"/>
+        <image name="launch.png" width="320" height="480"/>
         <image name="myo_logo.png" width="23" height="18"/>
         <image name="myo_logo_selected.png" width="23" height="18"/>
         <image name="pause.png" width="22" height="42"/>

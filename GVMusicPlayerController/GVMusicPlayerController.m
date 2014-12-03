@@ -110,21 +110,21 @@ void audioRouteChangeListenerCallback (void *inUserData, AudioSessionPropertyID 
         AudioSessionAddPropertyListener (kAudioSessionProperty_AudioRouteChange, audioRouteChangeListenerCallback, (__bridge void*)self);
 
         // Listen for volume changes
-        [[MPMusicPlayerController iPodMusicPlayer] beginGeneratingPlaybackNotifications];
+        [[MPMusicPlayerController systemMusicPlayer] beginGeneratingPlaybackNotifications];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(handle_VolumeChanged:)
                                                      name:MPMusicPlayerControllerVolumeDidChangeNotification
-                                                   object:[MPMusicPlayerController iPodMusicPlayer]];
+                                                   object:[MPMusicPlayerController systemMusicPlayer]];
     }
 
     return self;
 }
 
 - (void)dealloc {
-    [[MPMusicPlayerController iPodMusicPlayer] endGeneratingPlaybackNotifications];
+    [[MPMusicPlayerController systemMusicPlayer] endGeneratingPlaybackNotifications];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                   name:MPMusicPlayerControllerVolumeDidChangeNotification
-                                object:[MPMusicPlayerController iPodMusicPlayer]];
+                                object:[MPMusicPlayerController systemMusicPlayer]];
 }
 
 - (void)addDelegate:(id<GVMusicPlayerControllerDelegate>)delegate {
@@ -269,11 +269,11 @@ void audioRouteChangeListenerCallback (void *inUserData, AudioSessionPropertyID 
 }
 
 - (float)volume {
-    return [MPMusicPlayerController iPodMusicPlayer].volume;
+    return [MPMusicPlayerController systemMusicPlayer].volume;
 }
 
 - (void)setVolume:(float)volume {
-    [MPMusicPlayerController iPodMusicPlayer].volume = volume;
+    [MPMusicPlayerController systemMusicPlayer].volume = volume;
     for (id <GVMusicPlayerControllerDelegate> delegate in self.delegates) {
         if ([delegate respondsToSelector:@selector(musicPlayer:volumeChanged:)]) {
             [delegate musicPlayer:self volumeChanged:volume];
@@ -395,17 +395,19 @@ void audioRouteChangeListenerCallback (void *inUserData, AudioSessionPropertyID 
         return;
     }
 
+    MPNowPlayingInfoCenter *center = (MPNowPlayingInfoCenter *)[playingInfoCenter defaultCenter];
+    NSMutableDictionary *songInfo = [NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                    MPMediaItemPropertyArtist: [self.nowPlayingItem valueForProperty:MPMediaItemPropertyArtist] ?: @"",
+                                                                                    MPMediaItemPropertyTitle: [self.nowPlayingItem valueForProperty:MPMediaItemPropertyTitle] ?: @"",
+                                                                                    MPMediaItemPropertyAlbumTitle: [self.nowPlayingItem valueForProperty:MPMediaItemPropertyAlbumTitle] ?: @"",
+                                                                                    MPMediaItemPropertyPlaybackDuration: [self.nowPlayingItem valueForProperty:MPMediaItemPropertyPlaybackDuration] ?: @0
+                                                                                    }];
+    // Add the artwork if it exists
     MPMediaItemArtwork *artwork = [self.nowPlayingItem valueForProperty:MPMediaItemPropertyArtwork];
-
-    MPNowPlayingInfoCenter *center = [playingInfoCenter defaultCenter];
-    NSDictionary *songInfo = @{
-        MPMediaItemPropertyArtist: [self.nowPlayingItem valueForProperty:MPMediaItemPropertyArtist],
-        MPMediaItemPropertyTitle: [self.nowPlayingItem valueForProperty:MPMediaItemPropertyTitle],
-        MPMediaItemPropertyAlbumTitle: [self.nowPlayingItem valueForProperty:MPMediaItemPropertyAlbumTitle],
-        MPMediaItemPropertyArtwork: artwork,
-        MPMediaItemPropertyPlaybackDuration: [self.nowPlayingItem valueForProperty:MPMediaItemPropertyPlaybackDuration]
-    };
-
+    if (artwork) {
+        [songInfo setObject:artwork forKey:MPMediaItemPropertyArtwork];
+    }
+    
     center.nowPlayingInfo = songInfo;
 }
 
@@ -426,7 +428,7 @@ void audioRouteChangeListenerCallback (void *inUserData, AudioSessionPropertyID 
 - (void)handle_VolumeChanged:(NSNotification *)notification {
     for (id <GVMusicPlayerControllerDelegate> delegate in self.delegates) {
         if ([delegate respondsToSelector:@selector(musicPlayer:volumeChanged:)]) {
-            [delegate musicPlayer:self volumeChanged:[MPMusicPlayerController iPodMusicPlayer].volume];
+            [delegate musicPlayer:self volumeChanged:[MPMusicPlayerController systemMusicPlayer].volume];
         }
     }
 }

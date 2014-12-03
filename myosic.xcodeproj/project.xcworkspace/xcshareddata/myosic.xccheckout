@@ -14,7 +14,7 @@
 		<string>https://github.com/thalmic-alpha/Myo-iOS-music.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>myosic.xcodeproj/project.xcworkspace</string>
+	<string>myosic.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>3D2CF32FBE025A5D31E9D40C3AB7647A1AB3E41B</key>

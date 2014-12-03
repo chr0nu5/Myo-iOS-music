@@ -47,14 +47,21 @@
     [self.timer fire];
     
     // Myo Notifications
-    // a myo connects
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didConnectMyo:) name:TLMMyoDidReceiveArmRecognizedEventNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didConnectMyo:) name:TLMHubDidConnectDeviceNotification object:nil];
+    // Posted whenever a TLMMyo disconnects.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDisconnectMyo:) name:TLMHubDidDisconnectDeviceNotification object:nil];
+    // Posted whenever the user does a successful Sync Gesture.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didConnectMyo:) name:TLMMyoDidReceiveArmSyncEventNotification object:nil];
+    // Posted whenever Myo loses sync with an arm (when Myo is taken off, or moved enough on the user's arm).
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDisconnectMyo:) name:TLMMyoDidReceiveArmUnsyncEventNotification object:nil];
+    // Posted whenever Myo is unlocked and the application uses TLMLockingPolicyStandard.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(unlock:) name: TLMMyoDidReceiveUnlockEventNotification object:nil];
+    // Posted whenever Myo is locked and the application uses TLMLockingPolicyStandard.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lock:) name:TLMMyoDidReceiveLockEventNotification object:nil];
     // a myo disconnects
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDisconnectMyo:) name:TLMHubDidConnectDeviceNotification object:nil];
     // receive a pose
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceivePoseChange:) name:TLMMyoDidReceivePoseChangedNotification object:nil];
-    // receive a snap
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveSnap:) name:@"TLMMyoDidReceiveSnapGestureNotification" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveGyroscopeEvent:) name:TLMMyoDidReceiveGyroscopeEventNotification object:nil];
     
     // launch the player
@@ -142,7 +149,6 @@
 
 - (void)didReceivePoseChange:(NSNotification*)notification {
     TLMPose *pose = notification.userInfo[kTLMKeyPose];
-    NSLog(@"%d", pose.type);
     
     if (!self.locked && self.isVoluming && pose.type == TLMPoseTypeRest) {
         self.isVoluming = NO;
@@ -177,9 +183,6 @@
                 [self resetAutolock];
             }
             break;
-        case TLMPoseTypeThumbToPinky:
-            [self lockOrUnlock];
-            break;
         case TLMPoseTypeUnknown:
         case TLMPoseTypeRest:
         default:
@@ -196,15 +199,11 @@
     }
 }
 
-- (void)didReceiveSnap:(NSNotification*)notification {
-    [self lockOrUnlock];
-}
-
 - (void)shortVibration {
     [[[TLMHub sharedHub] myoDevices][0] vibrateWithLength:TLMVibrationLengthShort];
 }
 
--(void)lock {
+-(void)lock:(NSNotification *)notification {
     if (!self.locked) {
         [self shortVibration];
     }
@@ -212,16 +211,11 @@
     NSLog(@"%@", self.locked?@"locked":@"unlocked");
 }
 
--(void)lockOrUnlock {
-    self.locked = !self.locked;
+-(void)unlock:(NSNotification *)notification {
     if (self.locked) {
         [self shortVibration];
-        [self.autoLockTimer  invalidate];
-    } else {
-        [self shortVibration];
-        [[NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(shortVibration) userInfo:nil repeats:NO] fire];
-        [self resetAutolock];
     }
+    self.locked = NO;
     NSLog(@"%@", self.locked?@"locked":@"unlocked");
 }
 

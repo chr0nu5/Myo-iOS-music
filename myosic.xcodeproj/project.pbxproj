@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		032DB28719D9D3A000CD123B /* MyoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 032DB28619D9D3A000CD123B /* MyoKit.framework */; };
+		030C726A1A2FB78D00313BEC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 030C72691A2FB78D00313BEC /* Images.xcassets */; };
+		034E9EA91A2FAC0500D07374 /* MyoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 034E9EA81A2FAC0500D07374 /* MyoKit.framework */; };
 		039E010518EB063A00FC59C4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 039E010418EB063A00FC59C4 /* Foundation.framework */; };
 		039E010718EB063A00FC59C4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 039E010618EB063A00FC59C4 /* CoreGraphics.framework */; };
 		039E010918EB063A00FC59C4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 039E010818EB063A00FC59C4 /* UIKit.framework */; };
@@ -82,7 +83,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		032DB28619D9D3A000CD123B /* MyoKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MyoKit.framework; sourceTree = "<group>"; };
+		030C72691A2FB78D00313BEC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		034E9EA81A2FAC0500D07374 /* MyoKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MyoKit.framework; sourceTree = "<group>"; };
 		039E010118EB063A00FC59C4 /* myosic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myosic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		039E010418EB063A00FC59C4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		039E010618EB063A00FC59C4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -160,7 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				039E021918EB071400FC59C4 /* MediaPlayer.framework in Frameworks */,
-				032DB28719D9D3A000CD123B /* MyoKit.framework in Frameworks */,
+				034E9EA91A2FAC0500D07374 /* MyoKit.framework in Frameworks */,
 				039E021618EB070600FC59C4 /* AudioToolbox.framework in Frameworks */,
 				039E021718EB070600FC59C4 /* AVFoundation.framework in Frameworks */,
 				039E021318EB06FA00FC59C4 /* CoreMedia.framework in Frameworks */,
@@ -207,7 +209,7 @@
 		039E010318EB063A00FC59C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				032DB28619D9D3A000CD123B /* MyoKit.framework */,
+				034E9EA81A2FAC0500D07374 /* MyoKit.framework */,
 				039E021818EB071400FC59C4 /* MediaPlayer.framework */,
 				039E021418EB070600FC59C4 /* AudioToolbox.framework */,
 				039E021518EB070600FC59C4 /* AVFoundation.framework */,
@@ -234,6 +236,7 @@
 				039E011318EB063A00FC59C4 /* MDAppDelegate.h */,
 				039E011418EB063A00FC59C4 /* MDAppDelegate.m */,
 				039E011618EB063A00FC59C4 /* Main.storyboard */,
+				030C72691A2FB78D00313BEC /* Images.xcassets */,
 				039E010B18EB063A00FC59C4 /* Supporting Files */,
 			);
 			path = myosic;
@@ -373,6 +376,7 @@
 				ORGANIZATIONNAME = mathieu.dutour;
 				TargetAttributes = {
 					039E010018EB063A00FC59C4 = {
+						DevelopmentTeam = 8SEPFSC7S3;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -432,6 +436,7 @@
 				039E017218EB068800FC59C4 /* sound_minus.png in Resources */,
 				039E016518EB068800FC59C4 /* pause@2x.png in Resources */,
 				039E010F18EB063A00FC59C4 /* InfoPlist.strings in Resources */,
+				030C726A1A2FB78D00313BEC /* Images.xcassets in Resources */,
 				039E016B18EB068800FC59C4 /* repeat_off@2x.png in Resources */,
 				039E016318EB068800FC59C4 /* myo_logo@2x.png in Resources */,
 				039E016D18EB068800FC59C4 /* repeat_one@2x.png in Resources */,
@@ -596,6 +601,10 @@
 		039E013418EB063A00FC59C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MyoKit.embeddedframework",
@@ -605,8 +614,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "myosic/myosic-Prefix.pch";
 				INFOPLIST_FILE = "myosic/myosic-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -614,6 +625,10 @@
 		039E013518EB063A00FC59C4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MyoKit.embeddedframework",
@@ -623,8 +638,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "myosic/myosic-Prefix.pch";
 				INFOPLIST_FILE = "myosic/myosic-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
